@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
 import {validate_string} from '../utils/string_';
 
-
-
-
 exports.message = async(req: Request, res: Response)=>{
     let check_jsonFormat = JSON.parse(JSON.stringify(req.body));
     try {

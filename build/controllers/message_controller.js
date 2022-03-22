@@ -25,7 +25,6 @@ exports.message = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 const message = req.body.message.split(' ')[0];
                 const return_val = (0, string_1.validate_string)(message);
                 const data = { response_id: conversation_id, response: return_val };
-                console.log(return_val);
                 res.send(data).status(200);
             }
         }
