@@ -1,4 +1,7 @@
 import { Request, Response } from 'express';
+import {validate_string} from '../utils/string_';
+
+
 
 
 exports.message = async(req: Request, res: Response)=>{
@@ -11,18 +14,10 @@ exports.message = async(req: Request, res: Response)=>{
         if (validate_id === false || validate_message === false) {
             return res.send({ message: 'Invalid json format' }).status(400);
         } else {
-            const conversation_id: any = req.body.conversation_id;
-            const data = { response_id: conversation_id, response:''};
+            const conversation_id: any = req.body.conversation_id; 
             const message: string = req.body.message.split(' ')[0];
-            const greetings = message.toLowerCase().includes('Hello'.toLowerCase()) || message.toLowerCase().includes('Hi'.toLowerCase());
-            let farewell = message.toLowerCase().includes('Goodbye'.toLowerCase()) || message.toLowerCase().includes('bye'.toLowerCase());
-            (greetings) ? greetings : null;
-            (farewell) ? farewell : null;
-
-            (greetings) ? data.response ='Welcome to StationFive.'   : 
-            (farewell) ? data.response ='Thank you, see you around.' :  
-            data.response ="Sorry, I don't understand"
-            
+            const return_val = validate_string(message);
+            const data = { response_id: conversation_id, response: return_val};     
             res.send(data).status(200)
         }
         }

@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const string_1 = require("../utils/string_");
 exports.message = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let check_jsonFormat = JSON.parse(JSON.stringify(req.body));
     try {
@@ -21,15 +22,10 @@ exports.message = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             }
             else {
                 const conversation_id = req.body.conversation_id;
-                const data = { response_id: conversation_id, response: '' };
                 const message = req.body.message.split(' ')[0];
-                const greetings = message.toLowerCase().includes('Hello'.toLowerCase()) || message.toLowerCase().includes('Hi'.toLowerCase());
-                let farewell = message.toLowerCase().includes('Goodbye'.toLowerCase()) || message.toLowerCase().includes('bye'.toLowerCase());
-                (greetings) ? greetings : null;
-                (farewell) ? farewell : null;
-                (greetings) ? data.response = 'Welcome to StationFive.' :
-                    (farewell) ? data.response = 'Thank you, see you around.' :
-                        data.response = "Sorry, I don't understand";
+                const return_val = (0, string_1.validate_string)(message);
+                const data = { response_id: conversation_id, response: return_val };
+                console.log(return_val);
                 res.send(data).status(200);
             }
         }
